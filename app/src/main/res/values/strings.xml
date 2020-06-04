@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">WhatsApp</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password ?</string>
+    <string name="login">Login</string>
+    <string name="or">OR</string>
+    <string name="register">Register</string>
+    <string name="or_login_with">Or Login With</string>
+    <string name="already_have_an_account">Already have an Account ?</string>
+    <string name="todo">TODO</string>
+    <string name="username">Name</string>
+    <string name="hey_i_am_available_now">About</string>
+    <string name="update">Update</string>
+    <string name="create_new_group">Create New Group</string>
+    <string name="cancel">Cancel</string>
+    <string name="create">Create</string>
+    <string name="type_a_message">Type a message</string>
+    <string name="phone">Phone</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="send_verification_code">Send Verification Code</string>
+    <string name="verify">Verify</string>
+    <string name="ahmed_baheg">Ahmed Baheg</string>
+</resources>

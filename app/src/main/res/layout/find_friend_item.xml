@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:background="@color/colorDarkTheme">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image_find_friend"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/default_pic_user"
+        app:civ_border_color="@android:color/white"
+        app:civ_border_width="2dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="17dp"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/name_find_friend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ahmed_baheg"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:fontFamily="serif"
+                android:textStyle="bold"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/status_find_friend"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/online"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:visibility="invisible"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/about_find_friend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I am Android Developer"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:fontFamily="serif"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
