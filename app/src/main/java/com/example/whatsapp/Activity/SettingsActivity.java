@@ -81,7 +81,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             userStatus.requestFocus();
         } else {
 
-            saveInfoInDB(name, status, uid, imageUrl);
+            user = new User(name, status, uid, imageUrl);
             rootRef.child(Constants.getUID()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -165,7 +165,19 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                     public void onComplete(@NonNull Task<Uri> task) {
                         if (task.isSuccessful()) {
                             String downloadUrl = task.getResult().toString();
-                            saveInfoInDB(name , status , uid , downloadUrl);
+                            rootRef.child(Constants.getUID()).child("imageUrl")
+                                    .setValue(downloadUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                    }else {
+                                        progressBar.setVisibility(View.INVISIBLE);
+                                        String message = task.getException().toString();
+                                        Toast.makeText(SettingsActivity.this, "Error Occurred : " + message, Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
                         } else {
                             progressBar.setVisibility(View.INVISIBLE);
                             String message = task.getException().toString();

@@ -22,19 +22,28 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_user_profile"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+            <LinearLayout
+                android:id="@+id/linear"
+                android:layout_width="240dp"
+                android:layout_height="213dp"
                 android:layout_gravity="top|center"
-                android:layout_margin="50dp"
-                app:civ_border_width="2dp"
-                app:civ_border_color="@android:color/white"
-                android:src="@drawable/default_pic_user"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/shadow"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toTopOf="@+id/username"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_user_profile"
+                    android:layout_width="190dp"
+                    android:layout_height="190dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/default_pic_user" />
+
+            </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/username"
@@ -46,7 +55,7 @@
                 app:errorEnabled="true"
                 app:hintAnimationEnabled="true"
                 app:layout_constraintBottom_toTopOf="@+id/status"
-                app:layout_constraintTop_toBottomOf="@+id/img_user_profile">
+                app:layout_constraintTop_toBottomOf="@+id/linear">
 
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/HintAppearance"
@@ -91,10 +100,10 @@
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 app:SpinKit_Color="@color/colorBlueSky"
-                app:layout_constraintBottom_toBottomOf="@+id/img_user_profile"
-                app:layout_constraintEnd_toEndOf="@+id/img_user_profile"
-                app:layout_constraintStart_toStartOf="@+id/img_user_profile"
-                app:layout_constraintTop_toTopOf="@+id/img_user_profile" />
+                app:layout_constraintBottom_toBottomOf="@+id/linear"
+                app:layout_constraintEnd_toEndOf="@+id/linear"
+                app:layout_constraintStart_toStartOf="@+id/linear"
+                app:layout_constraintTop_toTopOf="@+id/linear" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

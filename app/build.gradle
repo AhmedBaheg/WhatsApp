@@ -50,4 +50,5 @@ dependencies {
     implementation 'com.android.support:cardview-v7:29.0.0'
     // best progress bar
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
 }
