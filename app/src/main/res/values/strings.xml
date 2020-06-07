@@ -24,4 +24,7 @@
     <string name="send_verification_code">Send Verification Code</string>
     <string name="verify">Verify</string>
     <string name="ahmed_baheg">Ahmed Baheg</string>
+    <string name="accept">Accept</string>
+    <string name="refuse">Refuse</string>
+    <string name="delete">Delete</string>
 </resources>

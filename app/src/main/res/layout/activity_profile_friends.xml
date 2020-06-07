@@ -56,6 +56,20 @@
                 app:layout_constraintStart_toStartOf="@+id/linear_image"
                 app:layout_constraintTop_toBottomOf="@+id/linear_image" />
 
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:fontFamily="serif"
+                android:text="@string/hey_i_am_available_now"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name_profile_find_friends" />
+
             <LinearLayout
                 android:id="@+id/liner_icon"
                 android:layout_width="match_parent"
@@ -66,7 +80,7 @@
                 android:weightSum="2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_name_profile_find_friends">
+                app:layout_constraintTop_toBottomOf="@+id/tv_status">
 
                 <ImageButton
                     android:id="@+id/btn_add_friend"
@@ -84,19 +98,47 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_status"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:fontFamily="serif"
-                android:text="@string/hey_i_am_available_now"
-                android:textColor="@android:color/white"
-                android:textSize="15sp"
-                android:textStyle="bold"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:orientation="horizontal"
+                android:weightSum="2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/liner_icon" />
+                app:layout_constraintTop_toBottomOf="@id/liner_icon">
+
+                <Button
+                    android:id="@+id/btn_accept"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/buttons"
+                    android:fontFamily="serif"
+                    android:text="@string/accept"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:visibility="invisible" />
+
+                <Button
+                    android:id="@+id/btn_refuse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:fontFamily="serif"
+                    android:text="@string/refuse"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
