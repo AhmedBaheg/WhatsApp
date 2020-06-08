@@ -32,11 +32,11 @@ public class ProfileFriendsActivity extends AppCompatActivity {
     private CircleImageView image_Profile_User_Find_Friends;
     private TextView tv_Name_Profile_Find_Friends, tv_Status;
     private ImageButton btn_Add_Friend, btn_Message_Friend;
-    private Button btn_Accept , btn_Refuse;
+    private Button btn_Accept, btn_Refuse;
 
     private User user;
 
-    private String receiverUserID, sendUserID, current_State , name;
+    private String receiverUserID, sendUserID, current_State, name;
 
     // Firebase
     private DatabaseReference rootRef, requestRef, contactsRef;
@@ -111,24 +111,23 @@ public class ProfileFriendsActivity extends AppCompatActivity {
                             }
                         });
                     }
-                }
-                else {
+                } else {
 
                     contactsRef.child(sendUserID)
                             .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.hasChild(receiverUserID)){
-                                current_State = "friends";
-                                btn_Add_Friend.setImageResource(R.drawable.ic_done);
-                            }
-                        }
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.hasChild(receiverUserID)) {
+                                        current_State = "friends";
+                                        btn_Add_Friend.setImageResource(R.drawable.ic_done);
+                                    }
+                                }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        }
-                    });
+                                }
+                            });
 
                 }
             }
@@ -154,7 +153,7 @@ public class ProfileFriendsActivity extends AppCompatActivity {
                     if (current_State.equals("request_sent")) {
                         cancelRequest();
                     }
-                    if (current_State.equals("friends")){
+                    if (current_State.equals("friends")) {
                         final DialogDeleteFriends dialog = new DialogDeleteFriends(ProfileFriendsActivity.this);
                         dialog.dialog_Title.setText("UnFriend " + name);
                         dialog.dialog_Body.setText("Are you sure from delete " + name + " from your contact");
@@ -228,18 +227,18 @@ public class ProfileFriendsActivity extends AppCompatActivity {
 
     }
 
-    private void acceptRequest(){
+    private void acceptRequest() {
 
         contactsRef.child(sendUserID).child(receiverUserID).child("contact")
                 .setValue("saved").addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     contactsRef.child(receiverUserID).child(sendUserID).child("contact")
                             .setValue("saved").addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 requestRef.child(sendUserID).child(receiverUserID)
                                         .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
@@ -275,7 +274,7 @@ public class ProfileFriendsActivity extends AppCompatActivity {
 
     }
 
-    private void removeFriendFromContact(){
+    private void removeFriendFromContact() {
 
         contactsRef.child(sendUserID).child(receiverUserID)
                 .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
