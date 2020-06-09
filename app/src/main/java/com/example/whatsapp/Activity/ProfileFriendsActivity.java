@@ -48,7 +48,7 @@ public class ProfileFriendsActivity extends AppCompatActivity {
 
         rootRef = FirebaseDatabase.getInstance().getReference(Constants.USERS);
         requestRef = FirebaseDatabase.getInstance().getReference("Requests");
-        contactsRef = FirebaseDatabase.getInstance().getReference("Contacts");
+        contactsRef = FirebaseDatabase.getInstance().getReference(Constants.CONTACTS);
 
         initializeView();
         displayProfileFriends();

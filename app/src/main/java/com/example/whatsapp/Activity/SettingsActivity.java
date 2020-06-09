@@ -222,6 +222,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 CropImage.activity()
                         .setGuidelines(CropImageView.Guidelines.ON_TOUCH)
                         .setAspectRatio(1, 1)
+                        .setAutoZoomEnabled(true)
                         .start(SettingsActivity.this);
                 break;
         }
