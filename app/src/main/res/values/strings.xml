@@ -27,4 +27,5 @@
     <string name="accept">Accept</string>
     <string name="refuse">Refuse</string>
     <string name="delete">Delete</string>
+    <string name="i_am_android_developer">I am Android Developer</string>
 </resources>

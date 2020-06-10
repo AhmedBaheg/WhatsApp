@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("WhatsApp");
 
         myViewPager = findViewById(R.id.main_tabs_pager);
-        myTabsAccessorAdapter = new TabsAccessorAdapter(getSupportFragmentManager(), 1);
+        myTabsAccessorAdapter = new TabsAccessorAdapter(getSupportFragmentManager(), 4);
         myViewPager.setAdapter(myTabsAccessorAdapter);
 
         myTabLayout = findViewById(R.id.main_tabs);
