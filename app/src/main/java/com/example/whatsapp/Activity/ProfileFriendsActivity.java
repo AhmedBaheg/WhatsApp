@@ -198,13 +198,13 @@ public class ProfileFriendsActivity extends AppCompatActivity {
 
     private void cancelRequest() {
 
-        requestRef.child(sendUserID).child(receiverUserID)
-                .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+        requestRef.child(sendUserID).child(receiverUserID).removeValue()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    requestRef.child(receiverUserID).child(sendUserID)
-                            .removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    requestRef.child(receiverUserID).child(sendUserID).removeValue()
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {

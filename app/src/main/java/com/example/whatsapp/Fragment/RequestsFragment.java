@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.whatsapp.Model.Contacts;
 import com.example.whatsapp.R;
@@ -17,6 +18,8 @@ import com.example.whatsapp.Utils.Constants;
 import com.example.whatsapp.ViewHolder.RequestsViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,10 +35,12 @@ public class RequestsFragment extends Fragment {
     private View view;
     private RecyclerView recyclerView;
 
+    private String senderID;
+
     private FirebaseRecyclerOptions<Contacts> options;
     private FirebaseRecyclerAdapter<Contacts, RequestsViewHolder> adapter;
 
-    private DatabaseReference requestRef, userRef;
+    private DatabaseReference requestRef, userRef, contactRef;
 
     public RequestsFragment() {
         // Required empty public constructor
@@ -48,8 +53,11 @@ public class RequestsFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_requests, container, false);
 
-        requestRef = FirebaseDatabase.getInstance().getReference("Requests").child(Constants.getUID());
+        requestRef = FirebaseDatabase.getInstance().getReference("Requests");
         userRef = FirebaseDatabase.getInstance().getReference(Constants.USERS);
+        contactRef = FirebaseDatabase.getInstance().getReference(Constants.CONTACTS);
+
+        senderID = Constants.getUID();
 
         recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -62,15 +70,15 @@ public class RequestsFragment extends Fragment {
         super.onStart();
 
         options = new FirebaseRecyclerOptions.Builder<Contacts>()
-                .setQuery(requestRef, Contacts.class)
+                .setQuery(requestRef.child(Constants.getUID()), Contacts.class)
                 .build();
 
         adapter = new FirebaseRecyclerAdapter<Contacts, RequestsViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull final RequestsViewHolder holder, int position, @NonNull Contacts model) {
 
-                final String requestsID = getRef(position).getKey();
-                DatabaseReference typeRef = getRef(position).child("request_type").getRef();
+                final String receiverID = getRef(position).getKey();
+                DatabaseReference typeRef = getRef(position).child("request_type");
 
                 typeRef.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -82,7 +90,7 @@ public class RequestsFragment extends Fragment {
                             if (type.equals("received")) {
 
 
-                                userRef.child(requestsID).addValueEventListener(new ValueEventListener() {
+                                userRef.child(receiverID).addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -96,7 +104,22 @@ public class RequestsFragment extends Fragment {
                                                 .error(R.drawable.default_pic_user)
                                                 .into(holder.image_Find_Friend);
 
+                                        holder.btn_Refuse.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                removeRequest(receiverID);
+                                            }
+                                        });
+
+                                        holder.btn_Accept.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                acceptRequest(receiverID);
+                                            }
+                                        });
+
                                     }
+
 
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -105,6 +128,8 @@ public class RequestsFragment extends Fragment {
                                 });
 
                             }
+
+
 
                         }
 
@@ -122,7 +147,6 @@ public class RequestsFragment extends Fragment {
             @Override
             public RequestsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = LayoutInflater.from(getContext()).inflate(R.layout.request_friend_item, parent, false);
-
                 return new RequestsViewHolder(view);
             }
         };
@@ -130,4 +154,51 @@ public class RequestsFragment extends Fragment {
         adapter.startListening();
 
     }
+
+    private void removeRequest(final String receiverID) {
+
+        requestRef.child(senderID).child(receiverID).removeValue()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+
+                            requestRef.child(receiverID).child(senderID).removeValue()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+
+                                            }
+                                        }
+                                    });
+
+                        }
+                    }
+                });
+
+    }
+
+    private void acceptRequest(final String receiverID) {
+
+        contactRef.child(senderID).child(receiverID).child("contact")
+                .setValue("saved").addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            contactRef.child(receiverID).child(senderID).child("contact")
+                                    .setValue("saved").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                removeRequest(receiverID);
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                });
+
+    }
+
 }
